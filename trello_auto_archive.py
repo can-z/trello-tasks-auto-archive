@@ -1,11 +1,14 @@
 from trello import Boards, Members
 import requests
+import ConfigParser
 
 
 def main():
-    api_key = "7dcfa320a1cf6348fa4d7ca8ea8e3c07"
+    config = ConfigParser.ConfigParser()
+    config.read('settings.cfg')
+    api_key = config.get('credentials', 'apikey')
     # print api.get_token_url("cz app", expires="never", write_access=True)
-    token = "d04c70b412973cd9a4b309119f9000e7afd79c57c360362817cd1ef63ff672e7"
+    token = config.get('credentials', 'token')
     members = Members(apikey=api_key, token=token)
     boards = Boards(apikey=api_key, token=token)
     all_boards = members.get_board('canzhang3')
